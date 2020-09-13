@@ -50,7 +50,7 @@ def predict():
 
 
 
-#@app.route('/predict',methods=['POST'])
+#@app.route('/predict',methods=['POST',"GET"])
 #def predict():
 #    '''
 #    For rendering results on HTML GUI
@@ -63,16 +63,29 @@ def predict():
 #
 #    return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 #
-#@app.route('/predict_api',methods=['POST'])
-#def predict_api():
-#    '''
-#    For direct API calls trought request
-#    '''
-#    data = request.get_json(force=True)
-#    prediction = model.predict([np.array(list(data.values()))])
-#
-#    output = prediction[0]
-#    return jsonify(output)
+@app.route('/predict_api',methods=['POST',"GET"])
+def predict_api():
+    '''
+    For direct API calls trought request
+    '''
+        signup_date = request.form.get("signup_date")
+        ref_date = request.form.get("ref_date")
+        money = request.form.get("money")
+        time = request.form.get("time")
+        country = request.form.get("country")
+        
+#        int_features = [convert_date_to_ordinal(datetime.datetime.strptime(signup_date,'%b %d %Y')),convert_date_to_ordinal(datetime.datetime.strptime(ref_date,'%b %d %Y')),int(money),int(time),country]
+        int_features = [convert_date_to_ordinal(datetime.datetime.fromisoformat(signup_date)),convert_date_to_ordinal(datetime.datetime.fromisoformat(ref_date)),int(money),int(time),country]
+        prediction = model.predict(int_features)
+        
+        output = datetime.datetime.fromordinal(int(round(prediction)))#[0])
+        T = datetime.datetime(2050, 1, 1, 0, 0)
+        
+        if output == T:
+            return render_template('index.html', prediction_text = 'customer does not churn')
+        else:
+            return render_template('index.html', prediction_text = 'churn date {}'.format(output))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
