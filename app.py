@@ -63,7 +63,7 @@ def predict():
 #
 #    return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
 #
-@app.route('/predict_api',methods=['POST',"GET"])
+#@app.route('/predict_api',methods=['POST',"GET"])
 
 
 
