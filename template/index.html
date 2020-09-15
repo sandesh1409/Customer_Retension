@@ -20,7 +20,7 @@
     <form action="{{ url_for('predict')}}"method="post">
     	<input type="date" name="signup_date" placeholder="dd-mm-yyyy" required="required" />
         <input type="date" name="ref_date" placeholder="dd-mm-yyyy" required="required" />
-	<input type="number" name="time" placeholder="time" required="required" />
+	<input type="number" name="time" placeholder="time (minutes)" required="required" />
 	<!--input type="number" name="money" placeholder="money" required="required" /-->
 	<label for="money">Range of money spend:</label>
 	<select name="money" id="money">
