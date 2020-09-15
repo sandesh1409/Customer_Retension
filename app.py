@@ -45,7 +45,7 @@ def predict():
         if output == T:
             return render_template('index.html', prediction_text = 'customer does not churn')
         else:
-            return render_template('index.html', prediction_text = 'churn date {}'.format(output))
+            return render_template('index.html', prediction_text = 'Customer churn date is {}'.format(output))
 
 
 
